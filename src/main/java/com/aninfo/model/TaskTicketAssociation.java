@@ -3,21 +3,21 @@ package com.aninfo.model;
 import javax.persistence.*;
 
 @Entity
+@IdClass(TaskTicketAssociationId.class)
 public class TaskTicketAssociation {
     @Id
-    private Long task_id;
+    private Long taskId;
     @Id
-    private Long ticket_id;
-
-    public TaskTicketAssociation(){
+    private Long ticketId;
+    public TaskTicketAssociation() {
     }
 
     public TaskTicketAssociation(Long task_id, Long ticket_id) {
-        this.task_id = task_id;
-        this.ticket_id = ticket_id;
+        this.taskId = task_id;
+        this.ticketId = ticket_id;
     }
-    public Long getTaskId(){return task_id;}
-    public Long getTicketId(){return ticket_id;}
-    public void setTaskId(Long task_id){this.task_id = task_id;}
-    public void setTicketId(Long ticket_id){this.ticket_id = ticket_id;}
+    public Long getTaskId(){return taskId;}
+    public Long getTicketId(){return ticketId;}
+    public void setTaskId(Long task_id){this.taskId = task_id;}
+    public void setTicketId(Long ticket_id){this.ticketId = ticket_id;}
 }

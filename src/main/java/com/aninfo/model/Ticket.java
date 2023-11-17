@@ -12,6 +12,7 @@ public class Ticket {
     private String state;
     private String severity;
     private String client;
+
     public Ticket(){
     }
 

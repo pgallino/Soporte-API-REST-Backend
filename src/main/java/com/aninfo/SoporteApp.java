@@ -1,6 +1,8 @@
 package com.aninfo;
 
+import com.aninfo.model.TaskTicketAssociation;
 import com.aninfo.model.Ticket;
+import com.aninfo.service.TaskTicketAssociationService;
 import com.aninfo.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +29,7 @@ public class SoporteApp {
 	/* servicios */
 	@Autowired
 	private TicketService ticketService;
+	private TaskTicketAssociationService taskTicketAssociationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SoporteApp.class, args);
@@ -65,6 +68,11 @@ public class SoporteApp {
 	@DeleteMapping("/tickets/{id}")
 	public void deleteTicket(@PathVariable Long id) {
 		ticketService.deleteById(id);
+	}
+
+	@PostMapping("/tickets/{id}/tasks")
+	public Collection<TaskTicketAssociation> getAssociatedTasks(@PathVariable Long id) {
+		return taskTicketAssociationService.findTasksAssociatedByTicket(id);
 	}
 
 	@Bean

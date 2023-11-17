@@ -29,6 +29,7 @@ public class SoporteApp {
 	/* servicios */
 	@Autowired
 	private TicketService ticketService;
+	@Autowired
 	private TaskTicketAssociationService taskTicketAssociationService;
 
 	public static void main(String[] args) {
@@ -70,7 +71,11 @@ public class SoporteApp {
 		ticketService.deleteById(id);
 	}
 
-	@PostMapping("/tickets/{id}/tasks")
+	@PostMapping("/associations")
+	public TaskTicketAssociation createTaskTicketAssociation(@RequestBody TaskTicketAssociation taskTicketAssociation) {
+		return taskTicketAssociationService.createTaskTicketAssociation(taskTicketAssociation);
+	}
+	@GetMapping("/tickets/{id}/tasks")
 	public Collection<TaskTicketAssociation> getAssociatedTasks(@PathVariable Long id) {
 		return taskTicketAssociationService.findTasksAssociatedByTicket(id);
 	}

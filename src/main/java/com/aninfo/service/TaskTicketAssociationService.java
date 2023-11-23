@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
+/*
+Referencias:
+- https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html
+ */
 @Service
 public class TaskTicketAssociationService {
     @Autowired
@@ -22,7 +26,7 @@ public class TaskTicketAssociationService {
         return taskTicketAssociationRepository.findTaskTicketAssociationsByTicketId(ticket_id);
     }
 
-    @Transactional
+    @Transactional // No funciona sin esto
     public void deleteTaskTicketAssociation(Long ticket_id, Long task_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTicketIdAndTaskId(ticket_id, task_id);
     }

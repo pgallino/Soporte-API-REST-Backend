@@ -14,9 +14,10 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface TaskTicketAssociationRepository extends CrudRepository<TaskTicketAssociation, TaskTicketAssociationId> {
-    List<TaskTicketAssociation> findTaskTicketAssociationByTicketId(Long ticket_id);
-    List<TaskTicketAssociation> findTaskTicketAssociationByTaskId(Long task_id);
+    List<TaskTicketAssociation> findTaskTicketAssociationsByTicketId(Long ticket_id);
+    List<TaskTicketAssociation> findTaskTicketAssociationsByTaskId(Long task_id);
 
+    void deleteTaskTicketAssociationByTicketIdAndTaskId(Long ticket_id, Long task_id);
     @Override
     List<TaskTicketAssociation> findAll();
 }

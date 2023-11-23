@@ -77,7 +77,12 @@ public class SoporteApp {
 	}
 	@GetMapping("/tickets/{id}/tasks")
 	public Collection<TaskTicketAssociation> getAssociatedTasks(@PathVariable Long id) {
-		return taskTicketAssociationService.findTasksAssociatedByTicket(id);
+		return taskTicketAssociationService.findTasksTicketAssociationsByTicketId(id);
+	}
+
+	@DeleteMapping("/tickets/{ticket_id}/tasks/{task_id}")
+	public void deleteAssociatedTaskForTicket(@PathVariable Long ticket_id, @PathVariable Long task_id) {
+		taskTicketAssociationService.deleteTaskTicketAssociation(ticket_id, task_id);
 	}
 
 	@Bean

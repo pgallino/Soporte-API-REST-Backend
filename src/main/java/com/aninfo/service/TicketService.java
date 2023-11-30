@@ -3,7 +3,10 @@ package com.aninfo.service;
 import com.aninfo.model.Ticket;
 import com.aninfo.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,7 +18,8 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
-
+    @Autowired
+    private TaskTicketAssociationService taskTicketAssociationService;
 
     public Ticket createTicket(Ticket account) {
         return ticketRepository.save(account);
@@ -38,6 +42,14 @@ public class TicketService {
 
     public void save(Ticket account) {
         ticketRepository.save(account);
+    }
+    public ResponseEntity<Ticket> updateTicket(Ticket ticket, long productId, long versionId){
+        Optional<Ticket> aTicket = ticketRepository.findTicketByid(ticket.getId());
+        if (!aTicket.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        ticketRepository.save(ticket);
+        return ResponseEntity.ok().build();
     }
 
     public void deleteById(Long cbu) {

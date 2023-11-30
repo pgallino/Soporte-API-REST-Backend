@@ -30,59 +30,31 @@ public class SoporteApp {
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
-	private TaskTicketAssociationService taskTicketAssociationService;
+	private TaskTicketAssociationService ticketAssociationService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SoporteApp.class, args);
 	}
 
 	/* END-POINTS */
-	@PostMapping("/tickets/")
+	@PostMapping("/Tickets")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Ticket createTicket(@RequestBody Ticket ticket) {
-		return ticketService.createTicket(ticket);
-	}
+	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
 
-	@GetMapping("/tickets/{productid}/{versionid}")
-	public Collection<Ticket> getTickets(@PathVariable long productid, @PathVariable long versionid) {
-		return ticketService.getTickets(productid,versionid);
-	}
+	@GetMapping("/Ticket/{productId}/{versionId}")
+	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
 
-	@GetMapping("/tickets/{id}")
-	public ResponseEntity<Ticket> getTicket(@PathVariable Long id) {
-		Optional<Ticket> ticketOptional = ticketService.findById(id);
-		return ResponseEntity.of(ticketOptional);
+	@PutMapping("/Ticket")
+	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
+		long productId = ticket.getproductId();
+		long versionId = ticket.getversionId();
+		return ticketService.updateTicket(ticket,productId,versionId);
 	}
-
-	@PutMapping("/tickets/{id}")
-	public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable Long id) {
-		Optional<Ticket> ticketOptional = ticketService.findById(id);
-
-		if (!ticketOptional.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		ticket.setId(id);
-		ticketService.save(ticket);
-		return ResponseEntity.ok().build();
-	}
-
-	@DeleteMapping("/tickets/{id}")
-	public void deleteTicket(@PathVariable Long id) {
-		ticketService.deleteById(id);
-	}
-
-	@PostMapping("/associations")
-	public TaskTicketAssociation createTaskTicketAssociation(@RequestBody TaskTicketAssociation taskTicketAssociation) {
-		return taskTicketAssociationService.createTaskTicketAssociation(taskTicketAssociation);
-	}
-	@GetMapping("/tickets/{id}/tasks")
-	public Collection<TaskTicketAssociation> getAssociatedTasks(@PathVariable Long id) {
-		return taskTicketAssociationService.findTasksTicketAssociationsByTicketId(id);
-	}
-
-	@DeleteMapping("/tickets/{ticket_id}/tasks/{task_id}")
-	public void deleteAssociatedTaskForTicket(@PathVariable Long ticket_id, @PathVariable Long task_id) {
-		taskTicketAssociationService.deleteTaskTicketAssociation(ticket_id, task_id);
+	@PostMapping("/Ticket/Asociation")
+	@ResponseStatus(HttpStatus.CREATED)
+	public TaskTicketAssociation association(@RequestBody TaskTicketAssociation taskTicket){
+		return ticketAssociationService.createTaskTicketAssociation(taskTicket);
 	}
 
 	@Bean

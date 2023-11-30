@@ -62,4 +62,9 @@ public class Ticket {
     public void setProductId(long productId) { this.productId = productId;}
     public void setversionId(long versionId) { this.versionId = versionId;}
 
+    public void update(Ticket another){
+        this.state = another.state;
+        this.severity = another.severity;
+    }
+
 }

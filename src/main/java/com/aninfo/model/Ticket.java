@@ -8,7 +8,9 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private long productId;
 
+    private long versionId;
     private String state;
     private String severity;
     private String client;
@@ -16,10 +18,12 @@ public class Ticket {
     public Ticket(){
     }
 
-    public Ticket(String state, String severity, String client) {
+    public Ticket(String state, String severity, String client,long productId,long versionID) {
         this.state = state;
         this.severity = severity;
         this.client = client;
+        this.productId = productId;
+        this.versionId = versionID;
     }
 
     public Long getId() {
@@ -39,6 +43,12 @@ public class Ticket {
     public String getClient() {
         return this.client;
     }
+    public long getversionId() {
+        return this.versionId;
+    }
+    public long getproductId() {
+        return this.productId;
+    }
 
     public void setState(String state) {
         this.state = state;
@@ -49,5 +59,7 @@ public class Ticket {
     public void setClient(String client) {
         this.client = client;
     }
+    public void setProductId(long productId) { this.productId = productId;}
+    public void setversionId(long versionId) { this.versionId = versionId;}
 
 }

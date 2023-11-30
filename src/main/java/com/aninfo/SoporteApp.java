@@ -37,15 +37,15 @@ public class SoporteApp {
 	}
 
 	/* END-POINTS */
-	@PostMapping("/tickets")
+	@PostMapping("/tickets/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Ticket createTicket(@RequestBody Ticket ticket) {
 		return ticketService.createTicket(ticket);
 	}
 
-	@GetMapping("/tickets")
-	public Collection<Ticket> getTickets() {
-		return ticketService.getTickets();
+	@GetMapping("/tickets/{productid}/{versionid}")
+	public Collection<Ticket> getTickets(@PathVariable long productid, @PathVariable long versionid) {
+		return ticketService.getTickets(productid,versionid);
 	}
 
 	@GetMapping("/tickets/{id}")

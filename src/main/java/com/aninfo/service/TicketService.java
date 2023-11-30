@@ -48,12 +48,13 @@ public class TicketService {
         if (!aTicket.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        ticketRepository.save(ticket);
+        aTicket.get().update(ticket);
+        ticketRepository.save(aTicket.get());
         return ResponseEntity.ok().build();
     }
 
-    public void deleteById(Long cbu) {
-        ticketRepository.deleteById(cbu);
+    public void deleteById(Long ticketId) {
+        ticketRepository.deleteById(ticketId);
     }
 
 }

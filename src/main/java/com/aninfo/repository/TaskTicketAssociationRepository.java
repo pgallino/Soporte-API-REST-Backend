@@ -18,6 +18,7 @@ public interface TaskTicketAssociationRepository extends CrudRepository<TaskTick
     List<TaskTicketAssociation> findTaskTicketAssociationsByTaskId(Long task_id);
 
     void deleteTaskTicketAssociationByTicketIdAndTaskId(Long ticket_id, Long task_id);
+    void deleteTaskTicketAssociationByTicketId(Long ticket_id);
     @Override
     List<TaskTicketAssociation> findAll();
 }

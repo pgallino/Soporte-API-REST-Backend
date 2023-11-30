@@ -56,7 +56,15 @@ public class SoporteApp {
 	public TaskTicketAssociation association(@RequestBody TaskTicketAssociation taskTicket){
 		return ticketAssociationService.createTaskTicketAssociation(taskTicket);
 	}
-
+	@DeleteMapping("/Ticket/{ticketId}")
+	public void deleteTicket(@PathVariable long ticketId){
+		ticketService.deleteById(ticketId);
+		ticketAssociationService.deleteTaskTicketAssociation(ticketId);
+	}
+	@GetMapping("/Ticket/Asociation/{ticketId}")
+	public Collection<TaskTicketAssociation> getTasks(@PathVariable long ticketId){
+		return ticketAssociationService.findTasksTicketAssociationsByTicketId(ticketId);
+	}
 	@Bean
 	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2)

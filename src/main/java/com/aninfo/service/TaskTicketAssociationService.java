@@ -30,4 +30,8 @@ public class TaskTicketAssociationService {
     public void deleteTaskTicketAssociation(Long ticket_id, Long task_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTicketIdAndTaskId(ticket_id, task_id);
     }
+    @Transactional // No funciona sin esto
+    public void deleteTaskTicketAssociation(Long ticket_id) {
+        taskTicketAssociationRepository.deleteTaskTicketAssociationByTicketId(ticket_id);
+    }
 }

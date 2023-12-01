@@ -1,12 +1,11 @@
 package com.aninfo.service;
 
+import com.aninfo.exceptions.TicketNoEncontradoException;
 import com.aninfo.model.Ticket;
 import com.aninfo.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +20,8 @@ public class TicketService {
     @Autowired
     private TaskTicketAssociationService taskTicketAssociationService;
 
-    public Ticket createTicket(Ticket account) {
-        return ticketRepository.save(account);
+    public Ticket createTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
     }
 
     public Collection<Ticket> getTickets(long productid, long versionid) {
@@ -36,21 +35,30 @@ public class TicketService {
         return validTickets;
     }
 
-    public Optional<Ticket> findById(Long cbu) {
-        return ticketRepository.findById(cbu);
+    public Collection<Ticket> getAllTickets() {
+        return ticketRepository.findAll();
     }
 
-    public void save(Ticket account) {
-        ticketRepository.save(account);
+    public Optional<Ticket> findById(Long id) {
+        Optional<Ticket> ticket = ticketRepository.findById(id);
+        if (ticket.isEmpty()) {
+            throw new TicketNoEncontradoException("No se encontró el ticket");
+        } else return ticket;
     }
+
+    public void save(Ticket ticket) {
+        ticketRepository.save(ticket);
+    }
+
     public ResponseEntity<Ticket> updateTicket(Ticket ticket, long productId, long versionId){
-        Optional<Ticket> aTicket = ticketRepository.findTicketByid(ticket.getId());
-        if (!aTicket.isPresent()) {
-            return ResponseEntity.notFound().build();
+        Optional<Ticket> aTicket = ticketRepository.findById(ticket.getId());
+        if (aTicket.isEmpty()) {
+            throw new TicketNoEncontradoException("No se encontró el ticket");
+        } else {
+            aTicket.get().update(ticket);
+            ticketRepository.save(aTicket.get());
+            return ResponseEntity.ok().build();
         }
-        aTicket.get().update(ticket);
-        ticketRepository.save(aTicket.get());
-        return ResponseEntity.ok().build();
     }
 
     public void deleteById(Long ticketId) {

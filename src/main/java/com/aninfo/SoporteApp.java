@@ -38,13 +38,18 @@ public class SoporteApp {
 	}
 
 	/* END-POINTS */
-	@PostMapping("/Tickets")
+	@PostMapping("/Ticket")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
 
 	@GetMapping("/Ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
 
+	@GetMapping("/Ticket")
+	public Collection<Ticket> getTickets() {return ticketService.getAllTickets();}
+
+	@GetMapping("/Ticket/{ticketId}")
+	public Optional<Ticket> getTicketById(@PathVariable long ticketId) {return ticketService.findById(ticketId);}
 	@PutMapping("/Ticket")
 	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
 		long productId = ticket.getproductId();

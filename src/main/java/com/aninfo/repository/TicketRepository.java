@@ -12,5 +12,5 @@ public interface TicketRepository extends CrudRepository<Ticket, Long> {
 
     @Override
     List<Ticket> findAll();
-    Optional<Ticket> findTicketByid(long id);
+
 }

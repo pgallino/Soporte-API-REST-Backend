@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /*
 Referencias:
@@ -25,13 +26,20 @@ public class TaskTicketAssociationService {
     public Collection<TaskTicketAssociation> findTasksTicketAssociationsByTicketId(Long ticket_id) {
         return taskTicketAssociationRepository.findTaskTicketAssociationsByTicketId(ticket_id);
     }
+    public Collection<TaskTicketAssociation> findTaskTicketAssociationsByTaskId(Long taskId) {
+        return taskTicketAssociationRepository.findTaskTicketAssociationsByTaskId(taskId);
+    }
 
     @Transactional // No funciona sin esto
-    public void deleteTaskTicketAssociation(Long ticket_id, Long task_id) {
+    public void deleteTaskTicketAssociationBy(Long ticket_id, Long task_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTicketIdAndTaskId(ticket_id, task_id);
     }
     @Transactional // No funciona sin esto
-    public void deleteTaskTicketAssociation(Long ticket_id) {
+    public void deleteTaskTicketAssociationByTicketId(Long ticket_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTicketId(ticket_id);
+    }
+    @Transactional
+    public void deleteTaskTicketAssociationByTaskId(Long task_id) {
+        taskTicketAssociationRepository.deleteTaskTicketAssociationByTaskId(task_id);
     }
 }

@@ -1,7 +1,6 @@
 package com.aninfo;
 
-import com.aninfo.model.TaskTicketAssociation;
-import com.aninfo.model.Ticket;
+import com.aninfo.model.*;
 import com.aninfo.service.TaskTicketAssociationService;
 import com.aninfo.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +37,13 @@ public class SoporteApp {
 	}
 
 	/* END-POINTS */
-	@PostMapping("/Ticket")
+	@PostMapping("/Tickets")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
 
 	@GetMapping("/Ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
 
-	@GetMapping("/Ticket")
-	public Collection<Ticket> getTickets() {return ticketService.getAllTickets();}
-
-	@GetMapping("/Ticket/{ticketId}")
-	public Optional<Ticket> getTicketById(@PathVariable long ticketId) {return ticketService.findById(ticketId);}
 	@PutMapping("/Ticket")
 	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
 		long productId = ticket.getproductId();
@@ -69,6 +63,26 @@ public class SoporteApp {
 	@GetMapping("/Ticket/Asociation/{ticketId}")
 	public Collection<TaskTicketAssociation> getTasks(@PathVariable long ticketId){
 		return ticketAssociationService.findTasksTicketAssociationsByTicketId(ticketId);
+	}
+	@GetMapping("/Recursos")
+	public Collection<Recurso> getRecursos() {
+		ApiRecursos recursos = new ApiRecursos();
+		return recursos.getRecursos();
+	}
+	@GetMapping("/Recursos/{legajo}")
+	public Optional<Recurso> getRecurso(@PathVariable long legajo) {
+		ApiRecursos recursos = new ApiRecursos();
+		return recursos.findByLegajo(legajo);
+	}
+	@GetMapping("/Clientes")
+	public Collection<Cliente> getClientes() {
+		ApiClientes clientes = new ApiClientes();
+		return clientes.getClientes();
+	}
+	@GetMapping("/Clientes/{id}")
+	public Optional<Cliente> getCliente(@PathVariable long id) {
+		ApiClientes clientes = new ApiClientes();
+		return clientes.findById(id);
 	}
 	@Bean
 	public Docket apiDocket() {

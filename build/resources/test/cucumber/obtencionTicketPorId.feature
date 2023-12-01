@@ -1,4 +1,4 @@
-Feature: Obtencion de Ticket
+Feature: Obtencion de Ticket por id
 
   Scenario: Obtencion de ticket por id exitosa
     Given un ticket de id 1

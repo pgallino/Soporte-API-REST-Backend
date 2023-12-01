@@ -45,4 +45,40 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
         assertNotNull(exception);
     }
 
+    @Given("^un ticket del producto (\\d+) y version (\\d+)$")
+    public void unTicketDelProductoYVersion(long arg0, long arg1) {
+        ticket = crearTicket();
+        ticket.setProductId(arg0);
+        ticket.setversionId(arg1);
+    }
+
+    @When("^busco tickets del producto (\\d+) y version (\\d+)$")
+    public void buscoTicketsDelProductoYVersion(long arg0, long arg1) {
+        buscados = getTickets(arg0, arg1);
+    }
+
+    @Then("^se retornan los tickets del producto (\\d+) y version (\\d+)$")
+    public void seRetornanLosTicketsDelProductoYVersion(long arg0, long arg1) {
+        if (buscados.isPresent()) {
+            Collection<Ticket> listado = buscados.get();
+            Iterator<Ticket> it = listado.iterator();
+            while(it.hasNext()) {
+                Ticket ticket_listado = it.next();
+                assertEquals(arg0, ticket_listado.getproductId());
+                assertEquals(arg1, ticket_listado.getversionId());
+            }
+        }
+    }
+
+    @Then("^no se encuentran tickets del producto (\\d+) y version (\\d+)$")
+    public void noSeEncuentranTicketsDelProductoYVersion(long arg0, long arg1) {
+        if (buscados.isPresent()) {
+            Collection<Ticket> listado = buscados.get();
+            Iterator<Ticket> it = listado.iterator();
+            while(it.hasNext()) {
+                Ticket ticket_listado = it.next();
+                assertTrue(arg0 != ticket_listado.getproductId() || arg1 != ticket_listado.getversionId());
+            }
+        }
+    }
 }

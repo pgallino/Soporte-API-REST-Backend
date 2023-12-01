@@ -1,6 +1,6 @@
-Feature: Obtencion de Ticket
+Feature: Obtencion de Ticket por id
 
-  Scenario: Obtencion de ticket por id exitoso
+  Scenario: Obtencion de ticket por id exitosa
     Given un ticket de id 1
     When busco ticket por id 1
     Then se retorna el ticket de id 1

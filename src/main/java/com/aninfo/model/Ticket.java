@@ -20,13 +20,13 @@ public class Ticket {
     private long productId;
 
     private long versionId;
-
+    private String nombre;
 
 
     public Ticket(){
     }
 
-    public Ticket(String description, String date, String state, String severity, String priority, long client, long assigned, String comment, long productId, long versionId) {
+    public Ticket(String description, String date, String state, String severity, String priority, long client, long assigned, String comment, long productId, long versionId, String nombre) {
         this.description = description;
         this.date = date;
         this.state = state;
@@ -37,6 +37,8 @@ public class Ticket {
         this.comment = comment;
         this.productId = productId;
         this.versionId = versionId;
+        this.nombre = nombre;
+
     }
 
     public Long getId() {
@@ -77,6 +79,7 @@ public class Ticket {
     public String getComment() {
         return this.comment;
     }
+    public String getNombre() { return this.nombre;}
 
     public void setState(String state) {
         this.state = state;
@@ -104,7 +107,7 @@ public class Ticket {
     }
     public void setProductId(long productId) { this.productId = productId;}
     public void setversionId(long versionId) { this.versionId = versionId;}
-
+    public void setNombre(String nombre) { this.nombre = nombre;}
     public void update(Ticket another){
         this.description = another.description;
         this.state = another.state;

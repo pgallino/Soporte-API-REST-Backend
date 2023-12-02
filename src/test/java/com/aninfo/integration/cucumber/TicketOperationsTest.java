@@ -37,7 +37,7 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
     @Then("^se retorna el ticket de id (\\d+)$")
     public void se_retorna_el_ticket_de_id(long arg1) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        buscado.ifPresent(value -> assertEquals(ticket.getId(), value.getId()));
+        buscado.ifPresent(value -> assertEquals(ticket.getId_ticket(), value.getId_ticket()));
     }
 
     @Then("^no se encuentra el ticket$")
@@ -48,8 +48,8 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
     @Given("^un ticket del producto (\\d+) y version (\\d+)$")
     public void unTicketDelProductoYVersion(long arg0, long arg1) {
         ticket = crearTicket();
-        ticket.setProductId(arg0);
-        ticket.setversionId(arg1);
+        ticket.setProducto_id(arg0);
+        ticket.setVersion_id(arg1);
     }
 
     @When("^busco tickets del producto (\\d+) y version (\\d+)$")
@@ -64,8 +64,8 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
             Iterator<Ticket> it = listado.iterator();
             while(it.hasNext()) {
                 Ticket ticket_listado = it.next();
-                assertEquals(arg0, ticket_listado.getproductId());
-                assertEquals(arg1, ticket_listado.getversionId());
+                assertEquals(arg0, ticket_listado.getProducto_id());
+                assertEquals(arg1, ticket_listado.getVersion_id());
             }
         }
     }
@@ -77,7 +77,7 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
             Iterator<Ticket> it = listado.iterator();
             while(it.hasNext()) {
                 Ticket ticket_listado = it.next();
-                assertTrue(arg0 != ticket_listado.getproductId() || arg1 != ticket_listado.getversionId());
+                assertTrue(arg0 != ticket_listado.getProducto_id() || arg1 != ticket_listado.getVersion_id());
             }
         }
     }

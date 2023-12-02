@@ -28,7 +28,7 @@ public class TicketService {
         List<Ticket> allTickets = ticketRepository.findAll();
         Collection<Ticket> validTickets = new ArrayList<>();
         for (Ticket ticket : allTickets) {
-            if (ticket.getproductId() == productid && ticket.getversionId() == versionid) {
+            if (ticket.getProducto_id() == productid && ticket.getVersion_id() == versionid) {
                 validTickets.add(ticket);
                 }
         }
@@ -51,7 +51,7 @@ public class TicketService {
     }
 
     public ResponseEntity<Ticket> updateTicket(Ticket ticket, long productId, long versionId){
-        Optional<Ticket> aTicket = ticketRepository.findById(ticket.getId());
+        Optional<Ticket> aTicket = ticketRepository.findById(ticket.getId_ticket());
         if (aTicket.isEmpty()) {
             throw new TicketNoEncontradoException("No se encontró el ticket");
         } else {

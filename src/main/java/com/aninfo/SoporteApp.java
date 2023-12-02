@@ -45,8 +45,8 @@ public class SoporteApp {
 	/* Actualizar Ticket */
 	@PutMapping("/ticket")
 	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
-		long productId = ticket.getproductId();
-		long versionId = ticket.getversionId();
+		long productId = ticket.getProducto_id();
+		long versionId = ticket.getVersion_id();
 		return ticketService.updateTicket(ticket,productId,versionId);
 	}
 	/* Pedir Tickets para una version de un producto */

@@ -8,113 +8,113 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_ticket;
-    private String description;
-    private String date;
-    private String state;
-    private String severity;
+    private String descripcion;
+    private String fecha_de_creacion;
+    private String estado;
+    private String severidad;
 
-    private String priority;
-    private long client;
-    private long assigned;
-    private String comment;
-    private long productId;
+    private String prioridad;
+    private long cliente;
+    private long asignado;
+    private String comentarios;
+    private long producto_id;
 
-    private long versionId;
+    private long version_id;
     private String nombre;
 
 
     public Ticket(){
     }
 
-    public Ticket(String description, String date, String state, String severity, String priority, long client, long assigned, String comment, long productId, long versionId, String nombre) {
-        this.description = description;
-        this.date = date;
-        this.state = state;
-        this.severity = severity;
-        this.priority = priority;
-        this.client = client;
-        this.assigned = assigned;
-        this.comment = comment;
-        this.productId = productId;
-        this.versionId = versionId;
+    public Ticket(String descripcion, String fecha_de_creacion, String estado, String severidad, String prioridad, long cliente, long asignado, String comentarios, long producto_id, long version_id, String nombre) {
+        this.descripcion = descripcion;
+        this.fecha_de_creacion = fecha_de_creacion;
+        this.estado = estado;
+        this.severidad = severidad;
+        this.prioridad = prioridad;
+        this.cliente = cliente;
+        this.asignado = asignado;
+        this.comentarios = comentarios;
+        this.producto_id = producto_id;
+        this.version_id = version_id;
         this.nombre = nombre;
 
     }
 
-    public Long getId() {
+    public Long getId_ticket() {
         return id_ticket;
     }
 
-    public void setId(Long id) {
-        this.id_ticket = id;
+    public void setId_ticket(long id_ticket) {
+        this.id_ticket = id_ticket;
     }
 
-    public String getState() {
-        return this.state;
+    public String getEstado() {
+        return this.estado;
     }
-    public String getSeverity() {
-        return this.severity;
+    public String getSeveridad() {
+        return this.severidad;
     }
-    public long getClient() {
-        return this.client;
+    public long getCliente() {
+        return this.cliente;
     }
-    public long getAssigned() {
-        return this.assigned;
+    public long getAsignado() {
+        return this.asignado;
     }
-    public long getversionId() {
-        return this.versionId;
+    public long getVersion_id() {
+        return this.version_id;
     }
-    public long getproductId() {
-        return this.productId;
+    public long getProducto_id() {
+        return this.producto_id;
     }
-    public String getDescription() {
-        return this.description;
+    public String getDescripcion() {
+        return this.descripcion;
     }
-    public String getDate() {
-        return this.date;
+    public String getFecha_de_creacion() {
+        return this.fecha_de_creacion;
     }
-    public String getPriority() {
-        return this.priority;
+    public String getPrioridad() {
+        return this.prioridad;
     }
-    public String getComment() {
-        return this.comment;
+    public String getComentarios() {
+        return this.comentarios;
     }
     public String getNombre() { return this.nombre;}
 
-    public void setState(String state) {
-        this.state = state;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
-    public void setSeverity(String severity) {
-        this.severity = severity;
+    public void setSeveridad(String severidad) {
+        this.severidad = severidad;
     }
-    public void setClient(long client) {
-        this.client = client;
+    public void setCliente(long cliente) {
+        this.cliente = cliente;
     }
-    public void setAssigned(long assigned) {
-        this.assigned = assigned;
+    public void setAsignado(long asignado) {
+        this.asignado = asignado;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setFecha_de_creacion(String fecha_de_creacion) {
+        this.fecha_de_creacion = fecha_de_creacion;
     }
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
     }
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
     }
-    public void setProductId(long productId) { this.productId = productId;}
-    public void setversionId(long versionId) { this.versionId = versionId;}
+    public void setProducto_id(long producto_id) { this.producto_id = producto_id;}
+    public void setVersion_id(long version_id) { this.version_id = version_id;}
     public void setNombre(String nombre) { this.nombre = nombre;}
     public void update(Ticket another){
-        this.description = another.description;
-        this.state = another.state;
-        this.severity = another.severity;
-        this.priority = another.priority;
-        this.assigned = another.assigned;
-        this.comment = another.comment;
+        this.descripcion = another.descripcion;
+        this.estado = another.estado;
+        this.severidad = another.severidad;
+        this.prioridad = another.prioridad;
+        this.asignado = another.asignado;
+        this.comentarios = another.comentarios;
     }
 
 }

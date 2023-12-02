@@ -90,7 +90,7 @@ public class Ticket {
     public void setAssigned(long assigned) {
         this.assigned = assigned;
     }
-    public void setDecription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
     public void setDate(String date) {

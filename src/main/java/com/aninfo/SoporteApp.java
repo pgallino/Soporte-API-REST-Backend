@@ -38,49 +38,49 @@ public class SoporteApp {
 
 	/* END-POINTS */
 	/* Crear Ticket */
-	@PostMapping("/Tickets")
+	@PostMapping("/ticket")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
 
 	/* Actualizar Ticket */
-	@PutMapping("/Ticket")
+	@PutMapping("/ticket")
 	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
 		long productId = ticket.getproductId();
 		long versionId = ticket.getversionId();
 		return ticketService.updateTicket(ticket,productId,versionId);
 	}
 	/* Pedir Tickets para una version de un producto */
-	@GetMapping("/Ticket/{productId}/{versionId}")
+	@GetMapping("/ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
 
 	/* Crear asociacion ticket-task */
-	@PostMapping("/Ticket/Task")
+	@PostMapping("/ticket/task")
 	@ResponseStatus(HttpStatus.CREATED)
 	public TaskTicketAssociation association(@RequestBody TaskTicketAssociation taskTicket){
 		return ticketAssociationService.createTaskTicketAssociation(taskTicket);
 	}
 	/* Borrar Ticket y sus asociaciones */
-	@DeleteMapping("/Ticket/{ticketId}")
+	@DeleteMapping("/ticket/{ticketId}")
 	public void deleteTicket(@PathVariable long ticketId){
 		ticketService.deleteById(ticketId);
 		ticketAssociationService.deleteTaskTicketAssociationByTicketId(ticketId);
 	}
 	/* Borrar todas las asociaciones de tickets hacia una tarea */
-	@DeleteMapping("/Ticket/Task/{taskId}")
+	@DeleteMapping("/ticket/task/{taskId}")
 	public void deleteAsociationsWithTask(@PathVariable long taskId){
 		ticketAssociationService.deleteTaskTicketAssociationByTaskId(taskId);
 	}
-	@DeleteMapping("/Ticket/{ticketId}/task/{taskId}")
+	@DeleteMapping("/ticket/{ticketId}/task/{taskId}")
 	public void deleteAsociationsWithTask(@PathVariable long taskId,@PathVariable long ticketId){
 		ticketAssociationService.deleteTaskTicketAssociationBy(ticketId,taskId);
 	}
 	/* Pedir asociaciones de un ticket_id */
-	@GetMapping("/Ticket/{ticketId}/Task")
+	@GetMapping("/ticket/{ticketId}/task")
 	public Collection<TaskTicketAssociation> getTasks(@PathVariable long ticketId){
 		return ticketAssociationService.findTasksTicketAssociationsByTicketId(ticketId);
 	}
 	/* Pedir asociaciones a una task en concreto */
-	@GetMapping("/Ticket/Task/{taskId}")
+	@GetMapping("/ticket/task/{taskId}")
 	public Collection<TaskTicketAssociation> getTickets(@PathVariable long taskId){
 		return ticketAssociationService.findTaskTicketAssociationsByTaskId(taskId);
 	}

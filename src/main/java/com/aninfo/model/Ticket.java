@@ -7,7 +7,7 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id_ticket;
     private String description;
     private String date;
     private String state;
@@ -40,11 +40,11 @@ public class Ticket {
     }
 
     public Long getId() {
-        return id;
+        return id_ticket;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id_ticket = id;
     }
 
     public String getState() {

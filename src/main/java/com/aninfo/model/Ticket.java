@@ -3,6 +3,7 @@ package com.aninfo.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ticket")
 public class Ticket {
 
     @Id

@@ -32,8 +32,6 @@ public class TicketService {
                 validTickets.add(ticket);
                 }
         }
-        if (validTickets.size() == 0)
-            validTickets = null;
         return validTickets;
     }
 

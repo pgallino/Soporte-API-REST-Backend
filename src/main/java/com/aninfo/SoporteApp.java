@@ -70,6 +70,7 @@ public class SoporteApp {
 	public void deleteAsociationsWithTask(@PathVariable long taskId){
 		ticketAssociationService.deleteTaskTicketAssociationByTaskId(taskId);
 	}
+	/* Borrar la asociacion de un ticket y una tarea */
 	@DeleteMapping("/ticket/{ticketId}/task/{taskId}")
 	public void deleteAsociationsWithTask(@PathVariable long taskId,@PathVariable long ticketId){
 		ticketAssociationService.deleteTaskTicketAssociationBy(ticketId,taskId);

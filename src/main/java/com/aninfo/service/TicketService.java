@@ -23,7 +23,9 @@ public class TicketService {
     public Ticket createTicket(Ticket ticket) {
         return ticketRepository.save(ticket);
     }
-
+    public Optional<Ticket> getTicket(long id_ticket) {
+        return ticketRepository.findById(id_ticket);
+    }
     public Collection<Ticket> getTickets(long productid, long versionid) {
         List<Ticket> allTickets = ticketRepository.findAll();
         Collection<Ticket> validTickets = new ArrayList<>();

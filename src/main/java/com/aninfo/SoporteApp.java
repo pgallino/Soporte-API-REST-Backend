@@ -43,8 +43,8 @@ public class SoporteApp {
 	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
 
 	/* Actualizar Ticket */
-	@PutMapping("/ticket")
-	public ResponseEntity<Ticket>  updateTicket(@RequestBody Ticket ticket) {
+	@PutMapping("/ticket/{id_ticket}")
+	public ResponseEntity<Ticket>  updateTicket(@PathVariable long id_ticket, @RequestBody Ticket ticket) {
 		long productId = ticket.getProducto_id();
 		long versionId = ticket.getVersion_id();
 		return ticketService.updateTicket(ticket,productId,versionId);
@@ -52,7 +52,8 @@ public class SoporteApp {
 	/* Pedir Tickets para una version de un producto */
 	@GetMapping("/ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
-
+	@GetMapping("/ticket/{id_ticket}")
+	public Optional<Ticket> getTicket(@PathVariable long id_ticket) {return ticketService.getTicket(id_ticket);}
 	/* Crear asociacion ticket-task */
 	@PostMapping("/ticket/task")
 	@ResponseStatus(HttpStatus.CREATED)

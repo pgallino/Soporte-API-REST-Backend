@@ -87,6 +87,11 @@ public class SoporteApp {
 	public Collection<TaskTicketAssociation> getTickets(@PathVariable long taskId){
 		return ticketAssociationService.findTaskTicketAssociationsByTaskId(taskId);
 	}
+	/* Trae los tasks del back de tasks que esten asociados al id del ticket*/
+	@GetMapping("/ticket/{ticketid}/mytasks")
+	public Collection<Task> getMyTasks(@PathVariable long ticketid){
+		return ticketAssociationService.getgetTasksAssociatedToMyID(ticketid);
+	}
 	/* Pedir Recursos */
 	@GetMapping("/Recursos")
 	public Collection<Recurso> getRecursos() {

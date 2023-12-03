@@ -19,6 +19,14 @@ Listado de endpoints
     GET
     /ticket/{productId}/{versionId}
 
+### Pedir un ticket segun su id
+    GET
+    /ticket/{ticketid}
+
+### Pedir los tasks asociados a un ticket
+    GET
+    /ticket/{ticketid}/mytasks
+
 ### Crear asociacion ticket-task 
     POST
     /ticket/task

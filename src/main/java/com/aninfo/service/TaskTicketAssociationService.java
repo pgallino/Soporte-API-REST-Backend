@@ -1,12 +1,15 @@
 package com.aninfo.service;
 
 
+import com.aninfo.model.ApiTasks;
+import com.aninfo.model.Task;
 import com.aninfo.model.TaskTicketAssociation;
 import com.aninfo.repository.TaskTicketAssociationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,5 +44,17 @@ public class TaskTicketAssociationService {
     @Transactional
     public void deleteTaskTicketAssociationByTaskId(Long task_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTaskId(task_id);
+    }
+    public Collection<Task> getgetTasksAssociatedToMyID(long ticket_id){
+        ApiTasks apiTasks = new ApiTasks();
+        Collection<Task> allTasks = apiTasks.getMyTasks();
+        Collection<Task> myTasks = new ArrayList<>();
+        for(Task aTask: allTasks){
+            TaskTicketAssociation asoc = taskTicketAssociationRepository.findTaskTicketAssociationsByTaskIdAndTicketId(aTask.getId(),ticket_id);
+            if (asoc != null) {
+                myTasks.add(aTask);
+            }
+        }
+        return myTasks;
     }
 }

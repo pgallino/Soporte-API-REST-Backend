@@ -44,6 +44,7 @@ public class SoporteApp {
 
 	/* Actualizar Ticket */
 	@PutMapping("/ticket/{id_ticket}")
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Ticket>  updateTicket(@PathVariable long id_ticket, @RequestBody Ticket ticket) {
 		long productId = ticket.getProducto_id();
 		long versionId = ticket.getVersion_id();

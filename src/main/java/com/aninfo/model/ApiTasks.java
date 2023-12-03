@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 public class ApiTasks {
     public ApiTasks(){}
-    private static final String API_URL = "https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/";
+    private static final String API_URL = "https://back-proyectos-psa-2.onrender.com/tareas";
 
     public Collection<Task> getMyTasks(){
         Task[] tasks = getTasksArray();
@@ -27,7 +27,7 @@ public class ApiTasks {
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("https://my-json-server.typicode.com/gcaldev/psa-mock/tareas/"))
+                .uri(URI.create("https://back-proyectos-psa-2.onrender.com/tareas"))
                 .setHeader("Accept", "application/json")
                 .build();
         try {

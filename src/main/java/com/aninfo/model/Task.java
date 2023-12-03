@@ -10,7 +10,7 @@ public class Task {
 
     @Id
     private Long id;
-    private Long project_id;
+    private Long projectId;
     private String estado;
     private String fechaInicio;
     private String fechaFin;
@@ -27,8 +27,8 @@ public class Task {
     public void setId(Long id) {
         this.id = id;
     }
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
     public void setEstado(String estado) {
         this.estado = estado;
@@ -52,7 +52,7 @@ public class Task {
         this.descripcion = descripcion;
     }
     public Long getId() { return this.id;}
-    public Long getProject_id() { return this.project_id;}
+    public Long getProjectId() { return this.projectId;}
     public String getEstado() { return this.estado;}
     public String getFechaInicio() { return this.fechaInicio;}
     public String getFechaFin() { return this.fechaFin;}

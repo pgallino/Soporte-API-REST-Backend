@@ -28,4 +28,8 @@ public class TicketIntegrationServiceTest {
         return Optional.ofNullable(ticketService.getTickets(productid, versionid));
     }
 
+    void updateTicket(Ticket ticket, long productId, long versionId) {
+        ticketService.updateTicket(ticket, productId, versionId);
+    }
+
 }

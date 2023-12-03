@@ -81,4 +81,58 @@ public class TicketOperationsTest extends TicketIntegrationServiceTest{
             }
         }
     }
+
+    @Given("^un ticket con estado \"([^\"]*)\"$")
+    public void unTicketConEstado(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket = ticketService.createTicket(new Ticket("", "", arg0, "", "", 0, 0, "", 0, 0, ""));
+    }
+
+    @When("^cambio el estado a \"([^\"]*)\"$")
+    public void cambioElEstadoA(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket.setEstado(arg0);
+    }
+
+    @Then("^el estado del ticket es \"([^\"]*)\"$")
+    public void elEstadoDelTicketEs(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(ticket.getEstado(), arg0);
+    }
+
+    @Given("^un ticket con prioridad \"([^\"]*)\"$")
+    public void unTicketConPrioridad(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket = ticketService.createTicket(new Ticket("", "", "", "", arg0, 0, 0, "", 0, 0, ""));
+    }
+
+    @When("^cambio la prioridad a \"([^\"]*)\"$")
+    public void cambioLaPrioridadA(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket.setPrioridad(arg0);
+    }
+
+    @Then("^la prioridad del ticket es \"([^\"]*)\"$")
+    public void laPrioridadDelTicketEs(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(ticket.getPrioridad(), arg0);
+    }
+
+    @Given("^un ticket con severidad \"([^\"]*)\"$")
+    public void unTicketConSeveridad(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket = ticketService.createTicket(new Ticket("", "", "", arg0, "", 0, 0, "", 0, 0, ""));
+    }
+
+    @When("^cambio la severidad a \"([^\"]*)\"$")
+    public void cambioLaSeveridadA(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        ticket.setSeveridad(arg0);
+    }
+
+    @Then("^la severidad del ticket es \"([^\"]*)\"$")
+    public void laSeveridadDelTicketEs(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(ticket.getSeveridad(), arg0);
+    }
 }

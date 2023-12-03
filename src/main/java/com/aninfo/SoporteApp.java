@@ -53,6 +53,7 @@ public class SoporteApp {
 	/* Pedir Tickets para una version de un producto */
 	@GetMapping("/ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
+	/* pedir un ticket especifico por su id*/
 	@GetMapping("/ticket/{id_ticket}")
 	public Optional<Ticket> getTicket(@PathVariable long id_ticket) {return ticketService.getTicket(id_ticket);}
 	/* Crear asociacion ticket-task */
@@ -90,7 +91,12 @@ public class SoporteApp {
 	/* Trae los tasks del back de tasks que esten asociados al id del ticket*/
 	@GetMapping("/ticket/{ticketid}/mytasks")
 	public Collection<Task> getMyTasks(@PathVariable long ticketid){
-		return ticketAssociationService.getgetTasksAssociatedToMyID(ticketid);
+		return ticketAssociationService.getTasksAssociatedToMyID(ticketid);
+	}
+	/* Trae los tasks del back de tasks que no esten asociados al id del ticket*/
+	@GetMapping("/ticket/{ticketid}/notmytasks")
+	public Collection<Task> getMyNotTasks(@PathVariable long ticketid){
+		return ticketAssociationService.getTasksNotAssociatedToMyID(ticketid);
 	}
 	/* Pedir Recursos */
 	@GetMapping("/Recursos")

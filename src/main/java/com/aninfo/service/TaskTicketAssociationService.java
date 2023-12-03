@@ -45,13 +45,25 @@ public class TaskTicketAssociationService {
     public void deleteTaskTicketAssociationByTaskId(Long task_id) {
         taskTicketAssociationRepository.deleteTaskTicketAssociationByTaskId(task_id);
     }
-    public Collection<Task> getgetTasksAssociatedToMyID(long ticket_id){
+    public Collection<Task> getTasksAssociatedToMyID(long ticket_id){
         ApiTasks apiTasks = new ApiTasks();
         Collection<Task> allTasks = apiTasks.getMyTasks();
         Collection<Task> myTasks = new ArrayList<>();
         for(Task aTask: allTasks){
             TaskTicketAssociation asoc = taskTicketAssociationRepository.findTaskTicketAssociationsByTaskIdAndTicketId(aTask.getId(),ticket_id);
             if (asoc != null) {
+                myTasks.add(aTask);
+            }
+        }
+        return myTasks;
+    }
+    public Collection<Task> getTasksNotAssociatedToMyID(long ticket_id){
+        ApiTasks apiTasks = new ApiTasks();
+        Collection<Task> allTasks = apiTasks.getMyTasks();
+        Collection<Task> myTasks = new ArrayList<>();
+        for(Task aTask: allTasks){
+            TaskTicketAssociation asoc = taskTicketAssociationRepository.findTaskTicketAssociationsByTaskIdAndTicketId(aTask.getId(),ticket_id);
+            if (asoc == null) {
                 myTasks.add(aTask);
             }
         }

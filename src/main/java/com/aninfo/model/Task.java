@@ -58,6 +58,6 @@ public class Task {
     public String getFechaFin() { return this.fechaFin;}
     public String getPrioridad() { return this.prioridad;}
     public String getAsignado() { return this.asignado;}
-    public String getT() { return this.titulo;}
+    public String getTitulo() { return this.titulo;}
     public String getDescripcion() { return this.descripcion;}
 }

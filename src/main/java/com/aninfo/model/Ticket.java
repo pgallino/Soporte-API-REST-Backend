@@ -115,6 +115,7 @@ public class Ticket {
         this.prioridad = another.prioridad;
         this.asignado = another.asignado;
         this.comentarios = another.comentarios;
+        this.nombre = another.nombre;
     }
 
 }

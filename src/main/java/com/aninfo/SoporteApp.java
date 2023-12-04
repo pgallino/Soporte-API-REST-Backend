@@ -1,6 +1,7 @@
 package com.aninfo;
 
-import com.aninfo.model.Ticket;
+import com.aninfo.model.*;
+import com.aninfo.service.TaskTicketAssociationService;
 import com.aninfo.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,52 +28,110 @@ public class SoporteApp {
 	/* servicios */
 	@Autowired
 	private TicketService ticketService;
+	@Autowired
+	private TaskTicketAssociationService ticketAssociationService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SoporteApp.class, args);
 	}
 
 	/* END-POINTS */
-	@PostMapping("/tickets")
+	/* Crear Ticket */
+	@PostMapping("/ticket")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Ticket createTicket(@RequestBody Ticket ticket) {
-		return ticketService.createTicket(ticket);
+	public Ticket createTicket(@RequestBody Ticket ticket) {return ticketService.createTicket(ticket);}
+
+	/* Actualizar Ticket */
+	@PutMapping("/ticket/{id_ticket}")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Ticket>  updateTicket(@PathVariable long id_ticket, @RequestBody Ticket ticket) {
+		long productId = ticket.getProducto_id();
+		long versionId = ticket.getVersion_id();
+		return ticketService.updateTicket(ticket,productId,versionId);
 	}
-
-	@GetMapping("/tickets")
-	public Collection<Ticket> getTickets() {
-		return ticketService.getTickets();
+	@GetMapping("/ticket")
+	public Collection<Ticket> getAllTickets(){
+		return ticketService.getAllTickets();
 	}
-
-	@GetMapping("/tickets/{id}")
-	public ResponseEntity<Ticket> getTicket(@PathVariable Long id) {
-		Optional<Ticket> ticketOptional = ticketService.findById(id);
-		return ResponseEntity.of(ticketOptional);
+	/* Pedir Tickets para una version de un producto */
+	@GetMapping("/ticket/{productId}/{versionId}")
+	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}
+	/* pedir un ticket especifico por su id*/
+	@GetMapping("/ticket/{id_ticket}")
+	public Optional<Ticket> getTicket(@PathVariable long id_ticket) {return ticketService.getTicket(id_ticket);}
+	/* Crear asociacion ticket-task */
+	@PostMapping("/ticket/task")
+	@ResponseStatus(HttpStatus.CREATED)
+	public TaskTicketAssociation association(@RequestBody TaskTicketAssociation taskTicket){
+		return ticketAssociationService.createTaskTicketAssociation(taskTicket);
 	}
-
-	@PutMapping("/tickets/{id}")
-	public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket, @PathVariable Long id) {
-		Optional<Ticket> ticketOptional = ticketService.findById(id);
-
-		if (!ticketOptional.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		ticket.setId(id);
-		ticketService.save(ticket);
-		return ResponseEntity.ok().build();
+	/* Borrar Ticket y sus asociaciones */
+	@DeleteMapping("/ticket/{ticketId}")
+	public void deleteTicket(@PathVariable long ticketId){
+		ticketService.deleteById(ticketId);
+		ticketAssociationService.deleteTaskTicketAssociationByTicketId(ticketId);
 	}
-
-	@DeleteMapping("/tickets/{id}")
-	public void deleteTicket(@PathVariable Long id) {
-		ticketService.deleteById(id);
+	/* Borrar todas las asociaciones de tickets hacia una tarea */
+	@DeleteMapping("/ticket/task/{taskId}")
+	public void deleteAsociationsWithTask(@PathVariable long taskId){
+		ticketAssociationService.deleteTaskTicketAssociationByTaskId(taskId);
 	}
-
+	/* Borrar la asociacion de un ticket y una tarea */
+	@DeleteMapping("/ticket/{ticketId}/task/{taskId}")
+	public void deleteAsociationsWithTask(@PathVariable long taskId,@PathVariable long ticketId){
+		ticketAssociationService.deleteTaskTicketAssociationBy(ticketId,taskId);
+	}
+	/* Pedir asociaciones de un ticket_id */
+	@GetMapping("/ticket/{ticketId}/task")
+	public Collection<TaskTicketAssociation> getTasks(@PathVariable long ticketId){
+		return ticketAssociationService.findTasksTicketAssociationsByTicketId(ticketId);
+	}
+	/* Pedir asociaciones a una task en concreto */
+	@GetMapping("/ticket/task/{taskId}")
+	public Collection<TaskTicketAssociation> getTickets(@PathVariable long taskId){
+		return ticketAssociationService.findTaskTicketAssociationsByTaskId(taskId);
+	}
+	/* Trae los tasks del back de tasks que esten asociados al id del ticket*/
+	@GetMapping("/ticket/{ticketid}/mytasks")
+	public Collection<Task> getMyTasks(@PathVariable long ticketid){
+		return ticketAssociationService.getTasksAssociatedToMyID(ticketid);
+	}
+	/* Trae los tasks del back de tasks que no esten asociados al id del ticket*/
+	@GetMapping("/ticket/{ticketid}/notmytasks")
+	public Collection<Task> getMyNotTasks(@PathVariable long ticketid){
+		return ticketAssociationService.getTasksNotAssociatedToMyID(ticketid);
+	}
+	/* Pedir Recursos */
+	@GetMapping("/Recursos")
+	public Collection<Recurso> getRecursos() {
+		ApiRecursos recursos = new ApiRecursos();
+		return recursos.getRecursos();
+	}
+	/* Pedir un recurso */
+	@GetMapping("/Recursos/{legajo}")
+	public Optional<Recurso> getRecurso(@PathVariable long legajo) {
+		ApiRecursos recursos = new ApiRecursos();
+		return recursos.findByLegajo(legajo);
+	}
+	/* Pedir Clientes */
+	@GetMapping("/Clientes")
+	public Collection<Cliente> getClientes() {
+		ApiClientes clientes = new ApiClientes();
+		return clientes.getClientes();
+	}
+	/* Pedir un cliente */
+	@GetMapping("/Clientes/{id}")
+	public Optional<Cliente> getCliente(@PathVariable long id) {
+		ApiClientes clientes = new ApiClientes();
+		return clientes.findById(id);
+	}
 	@Bean
 	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2)
-			.select()
-			.apis(RequestHandlerSelectors.any())
-			.paths(PathSelectors.any())
-			.build();
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
 	}
 }

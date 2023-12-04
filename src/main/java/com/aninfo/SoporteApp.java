@@ -50,6 +50,10 @@ public class SoporteApp {
 		long versionId = ticket.getVersion_id();
 		return ticketService.updateTicket(ticket,productId,versionId);
 	}
+	@GetMapping("/ticket")
+	public Collection<Ticket> getAllTickets(){
+		return ticketService.getAllTickets();
+	}
 	/* Pedir Tickets para una version de un producto */
 	@GetMapping("/ticket/{productId}/{versionId}")
 	public Collection<Ticket> getTickets(@PathVariable long productId, @PathVariable long versionId) {return ticketService.getTickets(productId,versionId);}

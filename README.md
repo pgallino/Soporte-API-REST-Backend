@@ -14,6 +14,9 @@ Listado de endpoints
     PUT
     /ticket
     request body: ticket 
+### Pedir todos los tickets
+    GET
+    /ticket
 
 ### Pedir Tickets para una version de un producto
     GET
@@ -22,6 +25,10 @@ Listado de endpoints
 ### Pedir un ticket segun su id
     GET
     /ticket/{ticketid}
+
+### Pedir los tasks no asociados a un ticket
+    GET
+    /ticket/{ticketid}/notmytasks
 
 ### Pedir los tasks asociados a un ticket
     GET
